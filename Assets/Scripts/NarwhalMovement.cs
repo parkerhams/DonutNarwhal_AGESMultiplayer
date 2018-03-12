@@ -32,12 +32,16 @@ public class NarwhalMovement : MonoBehaviour
     private Text playerNumberText;
     private Player playerNumber_UseProperty;
     private CharacterController controller;
+    private int scoreCount;
 
     float horizontalInput;
     float verticalInput;
     string fireButton;
     string horizontalAxis;
     string verticalAxis;
+
+    public Text countText;
+    public Text winText;
 
     //FROM DAVID ANTOGNOLI'S JOIN SCREEN LAMBDA EXAMPLE
     public Player ControlPlayerNumber
@@ -76,6 +80,9 @@ public class NarwhalMovement : MonoBehaviour
         //MAKE SURE you change input tags to match certain player numbers
         //horizontalAxis = "Horizontal";
         //verticalAxis = "Vertical";
+        scoreCount = 0;
+        SetCountText();
+        winText.text = "";
     }
 
     // Update is called once per frame
@@ -103,6 +110,8 @@ public class NarwhalMovement : MonoBehaviour
             moveDirection = transform.TransformDirection(moveDirection);
 
             moveDirection *= moveSpeed;
+
+            StartCoroutine("BouncingNarwhal");
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -153,13 +162,32 @@ public class NarwhalMovement : MonoBehaviour
     //        narwhalRigidbody.velocity *= brakeMultiplier;
     //}
 
-    //IEnumerator BouncingNarwhal()
-    //{
-    //    narwhalRigidbody.velocity = Vector3.zero;
-    //    narwhalRigidbody.angularVelocity = Vector3.left * rotateSpeed;
-    //    yield return new WaitForSeconds(moveUpAndDownDelay);
-    //    narwhalRigidbody.angularVelocity = Vector3.zero;
-    //}
+    IEnumerator BouncingNarwhal()
+    {
+        narwhalRigidbody.velocity = Vector3.zero;
+        narwhalRigidbody.angularVelocity = Vector3.left * rotateSpeed;
+        yield return new WaitForSeconds(moveUpAndDownDelay);
+        narwhalRigidbody.angularVelocity = Vector3.zero;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pick Ups"))
+        {
+            other.gameObject.SetActive(false);
+            scoreCount = scoreCount + 1;
+            SetCountText();
+        }
+    }
+    void SetCountText()
+    {
+        countText.text = "Donuts: " + scoreCount.ToString();
+
+        if (scoreCount >= 11)
+        {
+            winText.text = "You Win!";
+        }
+    }
 }
 
 
