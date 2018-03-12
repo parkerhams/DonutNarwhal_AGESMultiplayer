@@ -10,11 +10,21 @@ public class LaserBeam : MonoBehaviour
     [SerializeField]
     AudioSource shootingNoise;
 
+    public ParticleSystem endEffect;
+    Transform endEffectTransform;
+
+    public Light shootLensFlare;
+
     void Start()
     {
         line = GetComponent<LineRenderer>();
         line.enabled = false;
         shootingNoise = GetComponent<AudioSource>();
+        shootLensFlare = GetComponent<Light>();
+
+        endEffect = GetComponentInChildren<ParticleSystem>();
+        if (endEffect)
+           endEffectTransform = endEffect.transform;
     }
 
     void Update()
@@ -38,6 +48,7 @@ public class LaserBeam : MonoBehaviour
     IEnumerator FireLaser()
     {
         line.enabled = true;
+        shootLensFlare.enabled = true;
         while(Input.GetButtonDown("Fire1"))
         {
             line.material.mainTextureOffset = new Vector2(0, Time.time);
@@ -54,10 +65,23 @@ public class LaserBeam : MonoBehaviour
                 {
                     hit.rigidbody.AddForceAtPosition(transform.forward * 5, hit.point);
                 }
+
+                if (endEffect)
+                {
+                    endEffectTransform.position = hit.point;
+                    if (!endEffect.isPlaying)
+                        endEffect.Play();
+                }
             }
             else
             {
                 line.SetPosition(1, ray.GetPoint(100));
+
+                if (endEffect)
+                {
+                    if (endEffect.isPlaying)
+                        endEffect.Stop();
+                }
             }
 
             yield return null;
