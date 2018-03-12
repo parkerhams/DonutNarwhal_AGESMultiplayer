@@ -40,6 +40,8 @@ public class LaserBeam : MonoBehaviour
         line.enabled = true;
         while(Input.GetButtonDown("Fire1"))
         {
+            line.material.mainTextureOffset = new Vector2(0, Time.time);
+
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
 
@@ -48,6 +50,10 @@ public class LaserBeam : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 line.SetPosition(1, hit.point);
+                if(hit.rigidbody)
+                {
+                    hit.rigidbody.AddForceAtPosition(transform.forward * 5, hit.point);
+                }
             }
             else
             {

@@ -18,6 +18,8 @@ public class NarwhalMovement : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     [SerializeField]
     int debugPlayerNumberOverride = 0;
+    [SerializeField]
+    AudioSource hitGroundAudio;
 
     private Rigidbody narwhalRigidbody;
     //int playerNumber_UseProperty;
@@ -50,6 +52,7 @@ public class NarwhalMovement : MonoBehaviour
     {
         narwhalRigidbody = GetComponent<Rigidbody>();
         playerNumberText = GetComponentInChildren<Text>();
+        hitGroundAudio = GetComponent<AudioSource>();
 
 #if UNITY_EDITOR
         if (debugPlayerNumberOverride > 0)
@@ -87,6 +90,7 @@ public class NarwhalMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 moveDirection.y = jumpForce;
+                hitGroundAudio.Play();
             }
         }
 
