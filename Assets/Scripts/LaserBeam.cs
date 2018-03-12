@@ -6,25 +6,31 @@ using UnityEngine;
 public class LaserBeam : MonoBehaviour
 {
     LineRenderer line;
-    public float laserWidth = 1.0f;
+    public float laserWidth = .15f;
+    [SerializeField]
+    AudioSource shootingNoise;
 
     void Start()
     {
         line = GetComponent<LineRenderer>();
         line.enabled = false;
+        shootingNoise = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         if(Input.GetButtonDown("Fire1"))
-        {
+        {            
             //Just a safety net - we don't want more than one laser in case it keep running
             StopCoroutine("FireLaser");
             StartCoroutine("FireLaser");
+
+            shootingNoise.Play();
         }
         if(Input.GetButtonUp("Fire1"))
         {
             line.enabled = false;
+            shootingNoise.Stop();
         }
     }
 
@@ -35,9 +41,18 @@ public class LaserBeam : MonoBehaviour
         while(Input.GetButtonDown("Fire1"))
         {
             Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
 
             line.SetPosition(0, ray.origin);
-            line.SetPosition(1, ray.GetPoint(100));
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                line.SetPosition(1, hit.point);
+            }
+            else
+            {
+                line.SetPosition(1, ray.GetPoint(100));
+            }
 
             yield return null;
         }
