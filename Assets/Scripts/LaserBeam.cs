@@ -6,6 +6,7 @@ using UnityEngine;
 public class LaserBeam : MonoBehaviour
 {
     LineRenderer line;
+    public float laserWidth = 1.0f;
 
     void Start()
     {
@@ -20,6 +21,10 @@ public class LaserBeam : MonoBehaviour
             //Just a safety net - we don't want more than one laser in case it keep running
             StopCoroutine("FireLaser");
             StartCoroutine("FireLaser");
+        }
+        if(Input.GetButtonUp("Fire1"))
+        {
+            line.enabled = false;
         }
     }
 
@@ -37,9 +42,9 @@ public class LaserBeam : MonoBehaviour
             yield return null;
         }
 
-        line.enabled = false;
+        
     }
-    //public float laserWidth = 1.0f;
+    
     //public float noise = 1.0f;
     //public float maxLength = 50.0f;
     //public Color color = Color.red;
