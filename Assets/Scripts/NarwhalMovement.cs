@@ -16,32 +16,55 @@ public class NarwhalMovement : MonoBehaviour
     float gravity = 30f;
     [SerializeField]
     Vector3 moveDirection = Vector3.zero;
+    [SerializeField]
+    int debugPlayerNumberOverride = 0;
 
     private Rigidbody narwhalRigidbody;
-    int playerNumber_UseProperty;
+    //int playerNumber_UseProperty;
     private Text playerNumberText;
+    private Player playerNumber_UseProperty;
     private CharacterController controller;
+
     float horizontalInput;
     float verticalInput;
     string horizontalAxis;
     string verticalAxis;
 
-    public int PlayerNumber
+    //FROM DAVID ANTOGNOLI'S JOIN SCREEN LAMBDA EXAMPLE
+    public Player ControlPlayerNumber
     {
         get { return playerNumber_UseProperty; }
-        set { playerNumber_UseProperty = value; }
+        set
+        {
+            playerNumber_UseProperty = value;
+            UpdatePlayerIndexLabelText();
+        }
+    }
+
+    private void UpdatePlayerIndexLabelText()
+    {
+        playerNumberText.text = ControlPlayerNumber.PlayerNumber.ToString();
     }
 
     private void Awake()
     {
         narwhalRigidbody = GetComponent<Rigidbody>();
+        playerNumberText = GetComponentInChildren<Text>();
+
+#if UNITY_EDITOR
+        if (debugPlayerNumberOverride > 0)
+        {
+            ControlPlayerNumber = new Player(debugPlayerNumberOverride);
+        }
+#endif
     }
+
     // Use this for initialization
     void Start()
     {       
         controller = gameObject.GetComponent<CharacterController>();
-        horizontalAxis = "P" + PlayerNumber + "-Horizontal";
-        verticalAxis = "P" + PlayerNumber + "-Vertical";
+        //horizontalAxis = "P" + PlayerNumber + "-Horizontal";
+        //verticalAxis = "P" + PlayerNumber + "-Vertical";
     }
 
     // Update is called once per frame
