@@ -8,8 +8,8 @@ public class NarwhalMovement : MonoBehaviour
 
     [SerializeField]
     float speed = 10f;
-    //[SerializeField]
-    //float rotateSpeed = 5f;
+    [SerializeField]
+    float rotateSpeed = 5f;
     [SerializeField]
     float jumpForce = 15f;
     [SerializeField]
@@ -21,24 +21,27 @@ public class NarwhalMovement : MonoBehaviour
     int playerNumber_UseProperty;
     private Text playerNumberText;
     private CharacterController controller;
-    //float horizontalInput;
-    //float verticalInput;
-    //string horizontalAxis;
-    //string verticalAxis;
+    float horizontalInput;
+    float verticalInput;
+    string horizontalAxis;
+    string verticalAxis;
 
-    //public int PlayerNumber
-    //{
-    //    get { return playerNumber_UseProperty; }
-    //    set { playerNumber_UseProperty = value; }
-    //}
+    public int PlayerNumber
+    {
+        get { return playerNumber_UseProperty; }
+        set { playerNumber_UseProperty = value; }
+    }
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
         narwhalRigidbody = GetComponent<Rigidbody>();
+    }
+    // Use this for initialization
+    void Start()
+    {       
         controller = gameObject.GetComponent<CharacterController>();
-        //horizontalAxis = "P" + PlayerNumber + "-Horizontal";
-        //verticalAxis = "P" + PlayerNumber + "-Vertical";
+        horizontalAxis = "P" + PlayerNumber + "-Horizontal";
+        verticalAxis = "P" + PlayerNumber + "-Vertical";
     }
 
     // Update is called once per frame
@@ -68,13 +71,13 @@ public class NarwhalMovement : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
     }
 
-    //void Rotate()
-    //{
-    //    float turn = horizontalInput * rotateSpeed * Time.fixedDeltaTime;
-    //    Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-    //    narwhalRigidbody.angularVelocity = Vector3.zero;
-    //    narwhalRigidbody.MoveRotation(narwhalRigidbody.rotation * turnRotation);
-    //}
+    void Rotate()
+    {
+        float turn = horizontalInput * rotateSpeed * Time.fixedDeltaTime;
+        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
+        narwhalRigidbody.angularVelocity = Vector3.zero;
+        narwhalRigidbody.MoveRotation(narwhalRigidbody.rotation * turnRotation);
+    }
 
     //void HandleInput()
     //{
