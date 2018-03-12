@@ -10,6 +10,8 @@ public class Parallaxing : MonoBehaviour {
     float playerSpeed;
     [SerializeField]
     float moveStrength = 2;
+    [SerializeField]
+    
 
     Rigidbody planetRigidbody;
 
@@ -17,6 +19,7 @@ public class Parallaxing : MonoBehaviour {
     void Update()
     {
         //FollowCamera();
+
 
         planetRigidbody.AddForce(new Vector3(0, moveStrength));
     }
