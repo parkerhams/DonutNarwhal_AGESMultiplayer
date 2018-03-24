@@ -182,10 +182,12 @@ public class NarwhalMovement : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Donuts: " + scoreCount.ToString();
+        winText.text = "";
 
-        if (scoreCount >= 11)
+        if (scoreCount >= 1)
         {
-            winText.text = "You Win!";
+            countText.text = "";
+            winText.text = "" + debugPlayerNumberOverride + " Wins!";
         }
     }
 }
