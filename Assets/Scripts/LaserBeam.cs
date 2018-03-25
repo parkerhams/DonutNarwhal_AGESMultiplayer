@@ -11,20 +11,26 @@ public class LaserBeam : MonoBehaviour
     AudioSource shootingNoise;
 
     public ParticleSystem endEffect;
+    public ParticleSystem startEffect;
     Transform endEffectTransform;
+    Transform startEffectTransform;
 
-    public Light shootLensFlare;
+    //public Light shootLensFlare;
 
     void Start()
     {
         line = GetComponent<LineRenderer>();
         line.enabled = false;
+        //startEffect.enableEmission = false;
         shootingNoise = GetComponent<AudioSource>();
-        shootLensFlare = GetComponent<Light>();
+        //shootLensFlare = GetComponent<Light>();
 
         endEffect = GetComponentInChildren<ParticleSystem>();
+        startEffect = GetComponentInChildren<ParticleSystem>();
         if (endEffect)
            endEffectTransform = endEffect.transform;
+        if (startEffect)
+            startEffectTransform = startEffect.transform;
     }
 
     void Update()
@@ -42,7 +48,7 @@ public class LaserBeam : MonoBehaviour
             line.enabled = false;
             shootingNoise.Stop();
             endEffect.Stop();
-            shootLensFlare.enabled = false;
+            ///shootLensFlare.enabled = false;
         }
     }
 
@@ -50,9 +56,11 @@ public class LaserBeam : MonoBehaviour
     IEnumerator FireLaser()
     {
         line.enabled = true;
-        shootLensFlare.enabled = true;
+        //shootLensFlare.enabled = true;
         while(Input.GetButtonDown("Fire1"))
         {
+            //startEffect.enableEmission = true;
+            startEffect.Play();
             line.material.mainTextureOffset = new Vector2(0, Time.time);
 
             Ray ray = new Ray(transform.position, transform.forward);
@@ -65,7 +73,7 @@ public class LaserBeam : MonoBehaviour
                 line.SetPosition(1, hit.point);
                 if(hit.rigidbody)
                 {
-                    hit.rigidbody.AddForceAtPosition(transform.forward * 5, hit.point);
+                    hit.rigidbody.AddForceAtPosition(transform.forward * 20, hit.point);
                 }
 
                 if (endEffect)
