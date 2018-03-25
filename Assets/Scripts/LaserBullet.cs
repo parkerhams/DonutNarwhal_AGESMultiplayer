@@ -1,16 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LaserBullet : MonoBehaviour {
+    public float damage = 10f;
+    public float range = 100f;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    public Camera fpsCam;
+    
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+		if (Input.GetButtonDown("Fire1"))
+        {
+            ShootLaser();
+        }
 	}
+
+    void ShootLaser()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        {
+            Debug.Log(hit.transform.name);
+        }
+
+    }
 }
