@@ -40,7 +40,7 @@ public class PlayerManager
     public void DisableControl()
     {
         narwhalPlayer.canBeControlled = false;
-        narwhalPlayer.isAlive = false;
+        //narwhalPlayer.isAlive = false;
         m_CanvasGameObject.SetActive(false);
     }
 

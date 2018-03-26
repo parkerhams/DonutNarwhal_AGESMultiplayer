@@ -190,7 +190,7 @@ messageText.text = message;
             message += players[i].m_ColoredPlayerText + ": " + players[i].m_Wins + " WINS\n";
         }
 
-        if (gameWinner != null)
+        if (roundNumber >= 3)
             message = gameWinner.m_ColoredPlayerText + " hella lasered those Donuts!";
 
         return message;
