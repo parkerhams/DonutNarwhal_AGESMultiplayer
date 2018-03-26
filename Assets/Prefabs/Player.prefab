@@ -856,9 +856,10 @@ MonoBehaviour:
   fireSpeed: 5
   fireCooldown: 2
   moveDirection: {x: 0, y: 0, z: 0}
-  projectile: {fileID: 0}
+  projectile: {fileID: 1207332382828212, guid: dceb09780cd33264db41b50a74133911, type: 2}
   shootPoint: {fileID: 4084254718672756}
   hitGroundAudio: {fileID: 82281101653148586}
+  isAlive: 1
   countText: {fileID: 0}
   winText: {fileID: 0}
 --- !u!114 &114943373797966626
