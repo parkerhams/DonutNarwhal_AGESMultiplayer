@@ -38,7 +38,8 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     private string turnAxis;
     private string movementAxis;
 
-    private Text playerNumberText;
+    [SerializeField]
+    public Text playerNumberText;
     //private Player playerNumber_UseProperty;
     
     private int scoreCount;
@@ -170,8 +171,9 @@ public class NarwhalMoveAndTurn : MonoBehaviour
 
     private void Move()
     {
-        moveDirection = new Vector3(horizontalInput, verticalInput, 0);
-        narwhalRigidbody.velocity = moveDirection * moveSpeed;
+        //moveDirection = new Vector3(horizontalInput, verticalInput, 0);
+        //narwhalRigidbody.velocity = moveDirection * moveSpeed;
+        narwhalRigidbody.AddRelativeForce(new Vector3(VerticalInput * moveSpeed * Time.fixedDeltaTime, 0, 0));
         //narwhalRigidbody.MovePosition(narwhalRigidbody.position + moveDirection);
     }
 

@@ -18,11 +18,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //PlayerHealth targetHealth = collision.gameObject.GetComponent<PlayerHealth>();
-        //if (targetHealth)
-        //{
-        //    targetHealth.TakeDamage(damage);
-        //}
         if (gameObject != null)
             Destroy(gameObject);
     }

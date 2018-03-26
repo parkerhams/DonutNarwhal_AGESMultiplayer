@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     {
         int numPlayersLeft = 0;
 
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             if (players[i].narwhalPlayer.isAlive)
                 numPlayersLeft++;
