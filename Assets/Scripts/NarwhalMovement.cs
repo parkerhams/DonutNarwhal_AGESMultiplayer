@@ -88,41 +88,41 @@ public class NarwhalMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InputHandler();
-        //PlayerMoveAndJump();
+        //InputHandler();
+        PlayerMoveAndJump();
     }
 
     void FixedUpdate()
     {
         Rotate();
-        Move();
-        AdjustNarwhalVelocity();
-        Jump();
+        //Move();
+        //AdjustNarwhalVelocity();
+        //Jump();
     }
 
     //This uses CharacterController - must change
-    //private void PlayerMoveAndJump()
-    //{
-    //    if (controller.isGrounded)
-    //    {
-    //        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    private void PlayerMoveAndJump()
+    {
+        if (controller.isGrounded)
+        {
+            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-    //        moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection = transform.TransformDirection(moveDirection);
 
-    //        moveDirection *= moveSpeed;
+            moveDirection *= moveSpeed;
 
-    //        StartCoroutine("BouncingNarwhal");
+            StartCoroutine("BouncingNarwhal");
 
-    //        if (Input.GetButtonDown("Jump1"))
-    //        {
-    //            moveDirection.y = jumpForce;
-    //            hitGroundAudio.Play();
-    //        }
-    //    }
+            if (Input.GetButtonDown("Jump1"))
+            {
+                moveDirection.y = jumpForce;
+                hitGroundAudio.Play();
+            }
+        }
 
-    //    moveDirection.y -= gravity * Time.deltaTime;
-    //    controller.Move(moveDirection * Time.deltaTime);
-    //}
+        moveDirection.y -= gravity * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
+    }
 
     //FROM TANKS TUTORIAL BY UNITY
     void Rotate()
@@ -133,36 +133,36 @@ public class NarwhalMovement : MonoBehaviour
         narwhalRigidbody.MoveRotation(narwhalRigidbody.rotation * turnRotation);
     }
 
-    void InputHandler()
-    {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-    }
+    //void InputHandler()
+    //{
+    //    horizontalInput = Input.GetAxis("Horizontal");
+    //    verticalInput = Input.GetAxis("Vertical");
+    //}
 
-    void Move()
-    {
-        Vector3 narwhalMover = transform.forward * verticalInput * moveSpeed * Time.fixedDeltaTime;
-        StartCoroutine("BouncingNarwhal");
-        narwhalRigidbody.AddForce(narwhalMover);
+    //void Move()
+    //{
+    //    Vector3 narwhalMover = transform.forward * verticalInput * moveSpeed * Time.fixedDeltaTime;
+    //    StartCoroutine("BouncingNarwhal");
+    //    narwhalRigidbody.AddForce(narwhalMover);
 
-    }
+    //}
 
-    void Jump()
-    {
-        if (Input.GetButtonDown("Jump1"))
-        {
-            Debug.Log("The player has pressed the jump button.");
-            moveDirection.y = jumpForce;
-            hitGroundAudio.Play();
-        }
-        moveDirection.y -= gravity * Time.deltaTime;
-    }
+    //void Jump()
+    //{
+    //    if (Input.GetButtonDown("Jump1"))
+    //    {
+    //        Debug.Log("The player has pressed the jump button.");
+    //        moveDirection.y = jumpForce;
+    //        hitGroundAudio.Play();
+    //    }
+    //    moveDirection.y -= gravity * Time.deltaTime;
+    //}
 
-    void AdjustNarwhalVelocity()
-    {
-        if (Mathf.Sqrt(narwhalRigidbody.velocity.sqrMagnitude) >= maxMovementSpeed)
-            narwhalRigidbody.velocity *= brakeMultiplier;
-    }
+    //void AdjustNarwhalVelocity()
+    //{
+    //    if (Mathf.Sqrt(narwhalRigidbody.velocity.sqrMagnitude) >= maxMovementSpeed)
+    //        narwhalRigidbody.velocity *= brakeMultiplier;
+    //}
 
     IEnumerator BouncingNarwhal()
     {

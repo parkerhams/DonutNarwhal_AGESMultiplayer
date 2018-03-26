@@ -47,7 +47,7 @@ public class LaserBeam : MonoBehaviour
         {
             line.enabled = false;
             shootingNoise.Stop();
-            endEffect.Stop();
+            //endEffect.Stop();
             ///shootLensFlare.enabled = false;
         }
     }

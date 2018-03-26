@@ -779,7 +779,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1168e432e0c205345b90c4ec2f307c97, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.232
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1168e432e0c205345b90c4ec2f307c97, type: 2}
       propertyPath: m_LocalPosition.z
@@ -971,11 +971,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e73718513b97eca4da628505557ef594, type: 3}
-    m_FontSize: 20
+    m_FontSize: 114
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 114
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1522,6 +1522,25 @@ MonoBehaviour:
   CrankItX: 0
   CrankItY: 50
   CrankItZ: 0
+--- !u!1 &1381759068 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1730387799214426, guid: 9da8fffce05644f45a0982a697919346,
+    type: 2}
+  m_PrefabInternal: {fileID: 1971648001}
+--- !u!114 &1381759073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1381759068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.43376946, g: 0.8308824, b: 0.6665598, a: 0.766}
+  m_EffectDistance: {x: 1.86, y: 2.15}
+  m_UseGraphicAlpha: 1
 --- !u!4 &1468990020 stripped
 Transform:
   m_PrefabParentObject: {fileID: 442902, guid: d0ba74bc4033d3748a26e8aed52fb490, type: 2}
@@ -1826,10 +1845,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1976,7 +1995,7 @@ MonoBehaviour:
   cameraPos: {fileID: 1951822089}
   playerSpeed: 2.39
   moveStrength: 10
-  planetRigidbody: {fileID: 1910947430}
+  objectRigidbody: {fileID: 1910947430}
   pointB: {x: 3, y: 25, z: 0}
 --- !u!54 &1910947430
 Rigidbody:
@@ -2324,12 +2343,21 @@ Prefab:
     - target: {fileID: 143166865784781738, guid: 9da8fffce05644f45a0982a697919346,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54030513659776830, guid: 9da8fffce05644f45a0982a697919346,
         type: 2}
       propertyPath: m_Mass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54030513659776830, guid: 9da8fffce05644f45a0982a697919346,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1324654103001222, guid: 9da8fffce05644f45a0982a697919346, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9da8fffce05644f45a0982a697919346, type: 2}
@@ -2404,6 +2432,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.120079465
   m_Center: {x: 0, y: 0.11002476, z: -0.000000022351742}
+--- !u!114 &2080089974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080089969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1c361b7e99f4a4c8302d59025caafe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2140770116
 GameObject:
   m_ObjectHideFlags: 0
