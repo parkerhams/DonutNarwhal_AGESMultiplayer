@@ -61,6 +61,10 @@ public class MenuManager : MonoBehaviour
     // Quit the game
     public void QuitButton()
     {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
 }

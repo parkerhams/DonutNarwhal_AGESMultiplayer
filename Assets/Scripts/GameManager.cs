@@ -6,13 +6,21 @@ using UnityEngine.UI;
 
 // Script adapted from TANKS tutorial
 public class GameManager : MonoBehaviour
-{ 
+{
+    [SerializeField]
+    private int roundsToWin = 3;
     public CameraControl m_CameraControl;
-    public float m_StartDelay = 3f;
-    public float m_EndDelay = 3f;
-    public GameObject m_PlayerPrefab;
-    public List<PlayerManager> players;
-    public Text m_MessageText;
+    public float startDelay = 3f;
+    public float endDelay = 3f;
+    public GameObject playerPrefab;
+    public PlayerManager[] players;
+    public Text messageText;
+
+    private int roundNumber;
+    private WaitForSeconds StartRoundWait;
+    private WaitForSeconds EndRoundWait;
+    private PlayerManager roundWinner;
+    private PlayerManager gameWinner;
 
     [SerializeField]
     GameObject playerEndTextPrefab;
@@ -20,10 +28,7 @@ public class GameManager : MonoBehaviour
     GameObject endPanel;
     [SerializeField]
     string menuScene;
-
-    private PlayerManager m_GameWinner;
-    private WaitForSeconds m_StartWait;     
-    private WaitForSeconds m_EndWait;       
+       
     int activePlayers;
     List<GameObject> playerEndTexts = new List<GameObject>();
     GameObject playerScores;
@@ -32,8 +37,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         activePlayers = JoinScreen.NumberOfJoinedPlayers;
-        m_StartWait = new WaitForSeconds(m_StartDelay);
-        m_EndWait = new WaitForSeconds(m_EndDelay);
+        StartRoundWait = new WaitForSeconds(startDelay);
+        EndRoundWait = new WaitForSeconds(endDelay);
         playerScores = endPanel.transform.Find("PlayerScores").gameObject;
 
         SpawnAllPlayers();
@@ -50,7 +55,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < activePlayers; i++)
         {
             players[i].m_Instance =
-                Instantiate(m_PlayerPrefab, players[i].m_SpawnPoint.position, players[i].m_SpawnPoint.rotation) as GameObject;
+                Instantiate(playerPrefab, players[i].m_SpawnPoint.position, players[i].m_SpawnPoint.rotation) as GameObject;
             players[i].m_PlayerNumber = i + 1;
             players[i].Setup();
             playerEndTexts.Add(Instantiate(playerEndTextPrefab, playerScores.transform));
@@ -74,68 +79,66 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameLoop()
     {
-        //yield return StartCoroutine(RoundStarting());
-        //yield return StartCoroutine(RoundPlaying());
-        //yield return StartCoroutine(RoundEnding());
+        yield return StartCoroutine(RoundStarting());
+        yield return StartCoroutine(RoundPlaying());
+        yield return StartCoroutine(RoundEnding());
 
-        if (m_GameWinner != null)
+        if (gameWinner != null)
         {
-            //SceneManager.LoadScene(0);
-            endPanel.SetActive(true);
-            for(int i = 0; i < activePlayers; i++)
-            {
-                playerEndTexts[i].transform.Find("Points").GetComponent<Text>().text = players[i].m_Wins.ToString();
-            }
+            SceneManager.LoadScene(0);
+            //endPanel.SetActive(true);
+            //for(int i = 0; i < activePlayers; i++)
+            //{
+            //    playerEndTexts[i].transform.Find("Points").GetComponent<Text>().text = players[i].m_Wins.ToString();
+            //}
         }
         else
         {
-            yield return StartCoroutine(GameLoop());
+            StartCoroutine(GameLoop());
         }
     }
 
 
-    //private IEnumerator RoundStarting()
-    //{
-    //    ResetAllPlayers();
-    //    DisablePlayerControl();
+    private IEnumerator RoundStarting()
+    {
+        ResetAllPlayers();
+        DisablePlayerControl();
 
-    //    m_CameraControl.SetStartPositionAndSize();
+        m_CameraControl.SetStartPositionAndSize();
 
-    //    m_RoundNumber++;
-    //    m_MessageText.text = "ROUND " + m_RoundNumber;
+        roundNumber++;
+        messageText.text = "ROUND " + roundNumber;
 
-    //    yield return m_StartWait;
-    //}
+        yield return StartRoundWait;
+    }
 
 
-    //private IEnumerator RoundPlaying()
-    //{
-    //    EnablePlayerControl();
-    //    StartCoroutine(RandomNotes());
-    //    StartCoroutine(DiscoBallSpawn());
+    private IEnumerator RoundPlaying()
+    {
+        EnablePlayerControl();
+        
+        messageText.text = string.Empty;
 
-    //    m_MessageText.text = string.Empty;
-
-    //    while(!OnePlayerLeft())
-    //    {
-    //        yield return null;
-    //    }
-    //}
+        while (!OnePlayerLeft())
+        {
+            yield return null;
+        }
+    }
 
 
     private IEnumerator RoundEnding()
     {
         DisablePlayerControl();
 
-        m_GameWinner = GetGameWinner();
+        gameWinner = GetGameWinner();
 
         string message = EndMessage();
-        if (m_GameWinner != null)
+        if (gameWinner != null)
             playerScores.transform.Find("EndMessage").GetComponent<Text>().text = message;
         else
-            m_MessageText.text = message;
+            messageText.text = message;
 
-        yield return m_EndWait;
+        yield return EndRoundWait;
     }
 
     private bool OnePlayerLeft()
@@ -152,24 +155,24 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //private PlayerManager GetRoundWinner()
-    //{
-    //    for (int i = 0; i < activePlayers; i++)
-    //    {
-    //        if (players[i].m_Instance.activeSelf)
-    //            return players[i];
-    //    }
+    private PlayerManager GetRoundWinner()
+    {
+        for (int i = 0; i < activePlayers; i++)
+        {
+            if (players[i].m_Instance.activeSelf)
+                return players[i];
+        }
 
-    //    return null;
-    //}
+        return null;
+    }
 
 
     private PlayerManager GetGameWinner()
     {
         for (int i = 0; i < activePlayers; i++)
         {
-            //if (players[i].m_Wins == m_NumRoundsToWin)
-            //    return players[i];
+            if (players[i].m_Wins == roundsToWin)
+                return players[i];
         }
 
         return null;
@@ -178,10 +181,10 @@ public class GameManager : MonoBehaviour
 
     private string EndMessage()
     {
-        string message = "DRAW!";
+        string message = "Donuts are unscathed!";
 
-        //if (m_RoundWinner != null)
-        //    message = m_RoundWinner.m_ColoredPlayerText + " WINS THE ROUND!";
+        if (roundWinner != null)
+            message = roundWinner.m_ColoredPlayerText + " has lasered a Donut!";
 
         message += "\n\n\n\n";
 
@@ -190,8 +193,8 @@ public class GameManager : MonoBehaviour
             message += players[i].m_ColoredPlayerText + ": " + players[i].m_Wins + " WINS\n";
         }
 
-        if (m_GameWinner != null)
-            message = m_GameWinner.m_ColoredPlayerText + " WINS THE GAME!";
+        if (gameWinner != null)
+            message = gameWinner.m_ColoredPlayerText + " hella lasered those Donuts!";
 
         return message;
     }
