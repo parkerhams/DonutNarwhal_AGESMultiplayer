@@ -23,10 +23,6 @@ public class GameManager : MonoBehaviour
     private PlayerManager gameWinner;
 
     [SerializeField]
-    GameObject playerEndTextPrefab;
-    [SerializeField]
-    GameObject endPanel;
-    [SerializeField]
     string menuScene;
        
     int activePlayers;
@@ -39,7 +35,6 @@ public class GameManager : MonoBehaviour
         activePlayers = JoinScreen.NumberOfJoinedPlayers;
         StartRoundWait = new WaitForSeconds(startDelay);
         EndRoundWait = new WaitForSeconds(endDelay);
-        //playerScores = endPanel.transform.Find("PlayerScores").gameObject;
 
         SpawnAllPlayers();
         SetCameraTargets();
@@ -50,16 +45,12 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAllPlayers()
     {
-        //if (activePlayers < 2)
-        //    SceneManager.LoadScene(menuScene);
         for (int i = 0; i < players.Length; i++)
         {
             players[i].m_Instance =
                 Instantiate(playerPrefab, players[i].m_SpawnPoint.position, players[i].m_SpawnPoint.rotation) as GameObject;
             players[i].m_PlayerNumber = i + 1;
             players[i].Setup();
-            //playerEndTexts.Add(Instantiate(playerEndTextPrefab, playerScores.transform));
-            //playerEndTexts[i].transform.Find("Player").GetComponent<Text>().text = players[i].m_ColoredPlayerText;
         }
     }
 
@@ -89,11 +80,6 @@ public class GameManager : MonoBehaviour
         if (gameWinner != null)
         {
             SceneManager.LoadScene(0);
-            //endPanel.SetActive(true);
-            //for(int i = 0; i < activePlayers; i++)
-            //{
-            //    playerEndTexts[i].transform.Find("Points").GetComponent<Text>().text = players[i].m_Wins.ToString();
-            //}
         }
         else
         {

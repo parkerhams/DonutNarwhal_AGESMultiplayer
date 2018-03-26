@@ -55,10 +55,10 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     [HideInInspector]
     public bool isAlive = true;
 
-    public Text countText;
-    public Text winText;
+    //public Text countText;
+    //public Text winText;
 
-    public int playerNumber = 1;
+    //public int playerNumber = 1;
 
     //FROM DAVID ANTOGNOLI'S JOIN SCREEN LAMBDA EXAMPLE
     // Which player controls the character?
@@ -114,7 +114,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     {
         get
         {
-            return "Fire" + playerNumber;
+            return "Fire" + PlayerNumber;
         }
     }
     #endregion
