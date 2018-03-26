@@ -52,6 +52,9 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     string horizontalAxis;
     string verticalAxis;
 
+    [HideInInspector]
+    public bool isAlive = true;
+
     public Text countText;
     public Text winText;
 
