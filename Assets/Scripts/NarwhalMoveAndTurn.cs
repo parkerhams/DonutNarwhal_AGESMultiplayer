@@ -58,6 +58,8 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     public Text countText;
     public Text winText;
 
+    public int playerNumber = 1;
+
     //FROM DAVID ANTOGNOLI'S JOIN SCREEN LAMBDA EXAMPLE
     // Which player controls the character?
     // We will use the Player.PlayerNumber to
@@ -68,25 +70,25 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         set
         {
             playerNumber_UseProperty = value;
-            UpdatePlayerIndexLabelText();
+            //UpdatePlayerIndexLabelText();
         }
     }
 
-    private void UpdatePlayerIndexLabelText()
-    {
-        playerNumberText.text = PlayerNumber.ToString();
-    }
+    //private void UpdatePlayerIndexLabelText()
+    //{
+    //    playerNumberText.text = PlayerNumber.ToString();
+    //}
 
     #region private properties
-    private float HorizontalInput
-    {
-        get { return Input.GetAxis(HorizontalInputName); }
-    }
+    //private float HorizontalInput
+    //{
+    //    get { return Input.GetAxis(HorizontalInputName); }
+    //}
 
-    private float VerticalInput
-    {
-        get { return Input.GetAxis(VerticalInputName); }
-    }
+    //private float VerticalInput
+    //{
+    //    get { return Input.GetAxis(VerticalInputName); }
+    //}
 
     // You must configure the Unity Input Manager
     // to have an axis for each control for each supported player.
@@ -112,7 +114,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     {
         get
         {
-            return "Fire" + PlayerNumber;
+            return "Fire" + playerNumber;
         }
     }
     #endregion
@@ -130,13 +132,13 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         //horizontalAxis = "Horizontal" + debugPlayerNumberOverride;
         //verticalAxis = "Vertical" + debugPlayerNumberOverride;
 
-        horizontalAxis = HorizontalInputName;
-        verticalAxis = VerticalInputName;
-        fireButton = FireInputName;
+        //horizontalAxis = HorizontalInputName;
+        //verticalAxis = VerticalInputName;
+        //fireButton = FireInputName;
 
         scoreCount = 0;
-        SetCountText();
-        winText.text = "";
+        //SetCountText();
+        //winText.text = "";
     }
 
     private void Update()
@@ -160,15 +162,15 @@ public class NarwhalMoveAndTurn : MonoBehaviour
 
     void HandleInput()
     {
-        horizontalInput = Input.GetAxis(horizontalAxis);
-        verticalInput = Input.GetAxis(verticalAxis);
-        shouldShoot = Input.GetButtonDown(fireButton);
+        horizontalInput = Input.GetAxis(HorizontalInputName);
+        verticalInput = Input.GetAxis(VerticalInputName);
+        shouldShoot = Input.GetButtonDown(FireInputName);
 
     }
 
     private void Move()
     {
-        moveDirection = new Vector3(HorizontalInput, VerticalInput, 0);
+        moveDirection = new Vector3(horizontalInput, verticalInput, 0);
         narwhalRigidbody.velocity = moveDirection * moveSpeed;
         //narwhalRigidbody.MovePosition(narwhalRigidbody.position + moveDirection);
     }
@@ -185,7 +187,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     {
         activeProjectile = Instantiate(projectile, shootPoint.position, shootPoint.transform.rotation);
         activeProjectile.transform.Rotate(Vector3.right, -90f);
-        Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), activeProjectile.GetComponent<Collider>());
+        //Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), activeProjectile.GetComponent<Collider>());
         activeProjectile.GetComponent<Rigidbody>().velocity = shootPoint.transform.forward * fireSpeed;
 
         StartCoroutine(ShootCooldown());
@@ -197,7 +199,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             scoreCount = scoreCount + 1;
-            SetCountText();
+            //SetCountText();
         }
     }
 
@@ -207,15 +209,15 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         yield return new WaitForSeconds(fireCooldown);
         canShoot = true;
     }
-    void SetCountText()
-    {
-        countText.text = "Donuts: " + scoreCount.ToString();
-        winText.text = "";
+    //void SetCountText()
+    //{
+    //    countText.text = "Donuts: " + scoreCount.ToString();
+    //    winText.text = "";
 
-        if (scoreCount >= 1)
-        {
-            countText.text = "";
-            winText.text = "" + PlayerNumber + " Wins!";
-        }
-    }
+    //    if (scoreCount >= 1)
+    //    {
+    //        countText.text = "";
+    //        winText.text = "" + PlayerNumber + " Wins!";
+    //    }
+    //}
 }

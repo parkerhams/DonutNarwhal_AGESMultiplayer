@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         activePlayers = JoinScreen.NumberOfJoinedPlayers;
         StartRoundWait = new WaitForSeconds(startDelay);
         EndRoundWait = new WaitForSeconds(endDelay);
-        playerScores = endPanel.transform.Find("PlayerScores").gameObject;
+        //playerScores = endPanel.transform.Find("PlayerScores").gameObject;
 
         SpawnAllPlayers();
         SetCameraTargets();
@@ -50,27 +50,30 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAllPlayers()
     {
-        if (activePlayers < 2)
-            SceneManager.LoadScene(menuScene);
-        for (int i = 0; i < activePlayers; i++)
+        //if (activePlayers < 2)
+        //    SceneManager.LoadScene(menuScene);
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].m_Instance =
                 Instantiate(playerPrefab, players[i].m_SpawnPoint.position, players[i].m_SpawnPoint.rotation) as GameObject;
             players[i].m_PlayerNumber = i + 1;
             players[i].Setup();
-            playerEndTexts.Add(Instantiate(playerEndTextPrefab, playerScores.transform));
-            playerEndTexts[i].transform.Find("Player").GetComponent<Text>().text = players[i].m_ColoredPlayerText;
+            //playerEndTexts.Add(Instantiate(playerEndTextPrefab, playerScores.transform));
+            //playerEndTexts[i].transform.Find("Player").GetComponent<Text>().text = players[i].m_ColoredPlayerText;
         }
     }
 
 
     private void SetCameraTargets()
     {
-        Transform[] targets = new Transform[activePlayers];
+        Transform[] targets = new Transform[players.Length];
 
         for (int i = 0; i < targets.Length; i++)
         {
-            targets[i] = players[i].m_Instance.transform;
+            if (players[i].narwhalPlayer.isAlive)
+            {
+                targets[i] = players[i].m_Instance.transform;
+            }
         }
 
         m_CameraControl.m_Targets = targets;
@@ -129,7 +132,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator RoundEnding()
     {
         DisablePlayerControl();
-
+        roundWinner = null;
+        roundWinner = GetRoundWinner();
+        if(roundWinner != null)
+        {
+            roundWinner.m_Wins++;
+        }
         gameWinner = GetGameWinner();
 
         string message = EndMessage();
@@ -147,7 +155,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < activePlayers; i++)
         {
-            if (players[i].m_Instance.activeSelf)
+            if (players[i].narwhalPlayer.isAlive)
                 numPlayersLeft++;
         }
 
@@ -157,9 +165,9 @@ public class GameManager : MonoBehaviour
 
     private PlayerManager GetRoundWinner()
     {
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
-            if (players[i].m_Instance.activeSelf)
+            if (players[i].narwhalPlayer.isAlive)
                 return players[i];
         }
 
@@ -229,10 +237,5 @@ public class GameManager : MonoBehaviour
     public void RestartButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ToTitleButton()
-    {
-        SceneManager.LoadScene(0);
     }
 }

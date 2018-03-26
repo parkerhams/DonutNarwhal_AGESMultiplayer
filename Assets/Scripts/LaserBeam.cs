@@ -25,12 +25,12 @@ public class LaserBeam : MonoBehaviour
         shootingNoise = GetComponent<AudioSource>();
         //shootLensFlare = GetComponent<Light>();
 
-        endEffect = GetComponentInChildren<ParticleSystem>();
-        startEffect = GetComponentInChildren<ParticleSystem>();
-        if (endEffect)
-           endEffectTransform = endEffect.transform;
-        if (startEffect)
-            startEffectTransform = startEffect.transform;
+        //endEffect = GetComponentInChildren<ParticleSystem>();
+        //startEffect = GetComponentInChildren<ParticleSystem>();
+        //if (endEffect)
+        //   endEffectTransform = endEffect.transform;
+        //if (startEffect)
+        //    startEffectTransform = startEffect.transform;
     }
 
     void Update()
@@ -60,7 +60,7 @@ public class LaserBeam : MonoBehaviour
         while(Input.GetButtonDown("Fire1"))
         {
             //startEffect.enableEmission = true;
-            startEffect.Play();
+            //startEffect.Play();
             line.material.mainTextureOffset = new Vector2(0, Time.time);
 
             Ray ray = new Ray(transform.position, transform.forward);
@@ -76,22 +76,22 @@ public class LaserBeam : MonoBehaviour
                     hit.rigidbody.AddForceAtPosition(transform.forward * 20, hit.point);
                 }
 
-                if (endEffect)
-                {
-                    endEffectTransform.position = hit.point;
-                    if (!endEffect.isPlaying)
-                        endEffect.Play();
-                }
+                //if (endEffect)
+                //{
+                //    endEffectTransform.position = hit.point;
+                //    if (!endEffect.isPlaying)
+                //        endEffect.Play();
+                //}
             }
             else
             {
                 line.SetPosition(1, ray.GetPoint(100));
 
-                if (endEffect)
-                {
-                    if (endEffect.isPlaying)
-                        endEffect.Stop();
-                }
+                //if (endEffect)
+                //{
+                //    if (endEffect.isPlaying)
+                //        endEffect.Stop();
+                //}
             }
 
             yield return null;
