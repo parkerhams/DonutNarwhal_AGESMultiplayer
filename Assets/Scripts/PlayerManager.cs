@@ -12,21 +12,21 @@ public class PlayerManager
     [HideInInspector] public GameObject m_Instance;          
     [HideInInspector] public int m_Wins;
 
+    public NarwhalMoveAndTurn narwhalPlayer;
 
-    private NarwhalMoveAndTurn m_Movement;
     private GameObject m_CanvasGameObject;
     private ParticleSystem particleSystem;
 
 
     public void Setup()
     {
-        m_Movement = m_Instance.GetComponent<NarwhalMoveAndTurn>();
+        narwhalPlayer = m_Instance.GetComponent<NarwhalMoveAndTurn>();
         m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
         //particleSystem = m_Instance.GetComponent<PlayerHealth>().m_ExplosionPrefab.GetComponent<ParticleSystem>();
-        var systemMain = particleSystem.main;
-        systemMain.startColor = m_PlayerColor;
+        //var systemMain = particleSystem.main;
+        //systemMain.startColor = m_PlayerColor;
 
-        m_Movement.PlayerNumber = m_PlayerNumber;
+        narwhalPlayer.PlayerNumber = m_PlayerNumber;
 
         m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
 
@@ -39,14 +39,14 @@ public class PlayerManager
 
     public void DisableControl()
     {
-        m_Movement.enabled = false;
+        narwhalPlayer.enabled = false;
         m_CanvasGameObject.SetActive(false);
     }
 
 
     public void EnableControl()
     {
-        m_Movement.enabled = true;
+        narwhalPlayer.enabled = true;
 
         m_CanvasGameObject.SetActive(true);
     }
