@@ -25,8 +25,8 @@ public class NarwhalMoveAndTurn : MonoBehaviour
     GameObject projectile;
     [SerializeField]
     Transform shootPoint;
-    [SerializeField]
-    int debugPlayerNumberOverride = 0;
+    //[SerializeField]
+    //int debugPlayerNumberOverride = 0;
     [SerializeField]
     AudioSource hitGroundAudio;
 
@@ -212,7 +212,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         if (scoreCount >= 1)
         {
             countText.text = "";
-            winText.text = "" + debugPlayerNumberOverride + " Wins!";
+            winText.text = "" + PlayerNumber + " Wins!";
         }
     }
 }

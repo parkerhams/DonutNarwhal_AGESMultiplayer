@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour
     // Join screen
     [SerializeField]
     GameObject joinPanel;
+    [SerializeField]
+    GameObject controlsPanel;
     // Name of next scene
     [SerializeField]
     string nextScene;
@@ -22,6 +24,7 @@ public class MenuManager : MonoBehaviour
     public void StartButton()
     {
         mainPanel.SetActive(false);
+        controlsPanel.SetActive(false);
         joinPanel.SetActive(true);
     }
 
@@ -29,13 +32,22 @@ public class MenuManager : MonoBehaviour
     public void CreditsButton()
     {
         mainPanel.SetActive(false);
+        controlsPanel.SetActive(false);
         creditsPanel.SetActive(true);
+    }
+
+    public void ControlsButton()
+    {
+        mainPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+        controlsPanel.SetActive(true);
     }
 
     // Show the main panel, hide the credits panel
     public void BackButton()
     {
         creditsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
         mainPanel.SetActive(true);
     }
 
