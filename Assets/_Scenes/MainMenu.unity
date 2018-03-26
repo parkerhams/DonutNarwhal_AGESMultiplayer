@@ -3350,7 +3350,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d6516b08fa8b84ca24d9d1129547a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joinPanels: []
+  joinPanels:
+  - {fileID: 1397815052041632, guid: c2d5dffbe116ac74c96583eaf555fb44, type: 2}
+  - {fileID: 1397815052041632, guid: c2d5dffbe116ac74c96583eaf555fb44, type: 2}
+  - {fileID: 1397815052041632, guid: c2d5dffbe116ac74c96583eaf555fb44, type: 2}
+  - {fileID: 1397815052041632, guid: c2d5dffbe116ac74c96583eaf555fb44, type: 2}
 --- !u!1 &1292267622
 GameObject:
   m_ObjectHideFlags: 0
