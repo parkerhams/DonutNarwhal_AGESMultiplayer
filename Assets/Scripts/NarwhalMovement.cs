@@ -9,8 +9,6 @@ public class NarwhalMovement : MonoBehaviour
     [SerializeField]
     float moveSpeed = 10f;
     [SerializeField]
-    float maxMovementSpeed = 50f;
-    [SerializeField]
     float rotateSpeed = 5f;
     [SerializeField]
     float jumpForce = 15f;
@@ -31,7 +29,7 @@ public class NarwhalMovement : MonoBehaviour
 
     private Text playerNumberText;
     private Player playerNumber_UseProperty;
-    private CharacterController controller;
+    //private CharacterController controller;
     private int scoreCount;
 
     float horizontalInput;
@@ -72,11 +70,10 @@ public class NarwhalMovement : MonoBehaviour
         }
 #endif
     }
-
     // Use this for initialization
     void Start()
     {       
-        controller = gameObject.GetComponent<CharacterController>();
+        //controller = gameObject.GetComponent<CharacterController>();
         //MAKE SURE you change input tags to match certain player numbers
         horizontalAxis = "Horizontal";
         verticalAxis = "Vertical";
@@ -89,7 +86,7 @@ public class NarwhalMovement : MonoBehaviour
     void Update()
     {
         //InputHandler();
-        PlayerMoveAndJump();
+        //PlayerMoveAndJump();
     }
 
     void FixedUpdate()
@@ -101,28 +98,26 @@ public class NarwhalMovement : MonoBehaviour
     }
 
     //This uses CharacterController - must change
-    private void PlayerMoveAndJump()
-    {
-        if (controller.isGrounded)
-        {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    //private void PlayerMoveAndJump()
+    //{
+    //    if (controller.isGrounded)
+    //    {
+    //        moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            moveDirection = transform.TransformDirection(moveDirection);
+    //        moveDirection = transform.TransformDirection(moveDirection);
 
-            moveDirection *= moveSpeed;
+    //        moveDirection *= moveSpeed;
 
-            StartCoroutine("BouncingNarwhal");
+    //        if (Input.GetButtonDown("Jump1"))
+    //        {
+    //            moveDirection.y = jumpForce;
+    //            hitGroundAudio.Play();
+    //        }
+    //    }
 
-            if (Input.GetButtonDown("Jump1"))
-            {
-                moveDirection.y = jumpForce;
-                hitGroundAudio.Play();
-            }
-        }
-
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
-    }
+    //    moveDirection.y -= gravity * Time.deltaTime;
+    //    controller.Move(moveDirection * Time.deltaTime);
+    //}
 
     //FROM TANKS TUTORIAL BY UNITY
     void Rotate()
@@ -163,14 +158,6 @@ public class NarwhalMovement : MonoBehaviour
     //    if (Mathf.Sqrt(narwhalRigidbody.velocity.sqrMagnitude) >= maxMovementSpeed)
     //        narwhalRigidbody.velocity *= brakeMultiplier;
     //}
-
-    IEnumerator BouncingNarwhal()
-    {
-        narwhalRigidbody.velocity = Vector3.zero;
-        narwhalRigidbody.angularVelocity = Vector3.left * rotateSpeed;
-        yield return new WaitForSeconds(moveUpAndDownDelay);
-        narwhalRigidbody.angularVelocity = Vector3.zero;
-    }
 
     void OnTriggerEnter(Collider other)
     {

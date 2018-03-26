@@ -40,7 +40,7 @@ public class JoinScreen : MonoBehaviour
         {
             if (joinedPlayers[i] == true)
                 continue;
-            if(Input.GetButtonDown("P" + (i + 1).ToString() + "-" + joinButtonName))
+            if(Input.GetButtonDown(joinButtonName + (i + 1).ToString()))
             {
                 joinPanels[i].transform.Find("Text").GetComponent<Text>().text = "Player " + (i + 1).ToString() + " Joined!";
                 joinedPlayers[i] = true;
