@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 4542614721003716}
   - component: {fileID: 33879854093698010}
   - component: {fileID: 23366804593800118}
+  - component: {fileID: 114758049274245296}
   m_Layer: 0
   m_Name: Donuts
   m_TagString: Untagged
@@ -860,9 +861,17 @@ MonoBehaviour:
   shootPoint: {fileID: 4084254718672756}
   hitGroundAudio: {fileID: 82281101653148586}
   isAlive: 1
-  countText: {fileID: 0}
-  winText: {fileID: 0}
-  playerNumber: 0
+--- !u!114 &114758049274245296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637870320752018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688cb9323ca9d3a43ad8d918bd4957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114943373797966626
 MonoBehaviour:
   m_ObjectHideFlags: 1

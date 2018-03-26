@@ -70,25 +70,25 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         set
         {
             playerNumber_UseProperty = value;
-            //UpdatePlayerIndexLabelText();
+            UpdatePlayerIndexLabelText();
         }
     }
 
-    //private void UpdatePlayerIndexLabelText()
-    //{
-    //    playerNumberText.text = PlayerNumber.ToString();
-    //}
+    private void UpdatePlayerIndexLabelText()
+    {
+        playerNumberText.text = PlayerNumber.ToString();
+    }
 
     #region private properties
-    //private float HorizontalInput
-    //{
-    //    get { return Input.GetAxis(HorizontalInputName); }
-    //}
+    private float HorizontalInput
+    {
+        get { return Input.GetAxis(HorizontalInputName); }
+    }
 
-    //private float VerticalInput
-    //{
-    //    get { return Input.GetAxis(VerticalInputName); }
-    //}
+    private float VerticalInput
+    {
+        get { return Input.GetAxis(VerticalInputName); }
+    }
 
     // You must configure the Unity Input Manager
     // to have an axis for each control for each supported player.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeakPoint : MonoBehaviour {
+public class DonutPoint : MonoBehaviour {
 
     //will need reference to the Junkbot script so it can check whether it's Alive or not
     //All I want this to do is when the weakpoint collides with an object tagged "Weapon," it sets Junkbot.isAlive to "false"
