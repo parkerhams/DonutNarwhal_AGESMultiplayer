@@ -13,7 +13,7 @@ public class DynamicBackgrounds : MonoBehaviour {
     [SerializeField]
     
 
-    Rigidbody planetRigidbody;
+    Rigidbody objectRigidbody;
 
     //************CANNOT TAKE FULL CREDIT FOR THIS SCRIPT - courtesy of philjhale on the Unity Forums**********
     void Update()
@@ -21,7 +21,7 @@ public class DynamicBackgrounds : MonoBehaviour {
         //FollowCamera();
 
 
-        planetRigidbody.AddForce(new Vector3(0, moveStrength));
+        objectRigidbody.AddForce(new Vector3(0, moveStrength));
     }
 
     public Vector3 pointB;
