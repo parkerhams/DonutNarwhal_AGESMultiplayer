@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallaxing : MonoBehaviour {
+public class DynamicBackgrounds : MonoBehaviour {
 
     [SerializeField]
     Transform cameraPos;
