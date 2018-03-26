@@ -10,20 +10,23 @@ public class DonutPoint : MonoBehaviour {
     //This way, this script can be attached to any object
 
     private NarwhalMoveAndTurn parentNarwhal;
-    private AudioSource audioSource;
+    [SerializeField]
+    AudioSource hitSource;
 	// Use this for initialization
 	void Start ()
     {
         parentNarwhal = GetComponentInParent<NarwhalMoveAndTurn>();
-        audioSource = GetComponent<AudioSource>();
+        hitSource = GetComponent<AudioSource>();
 	}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Weapon" && parentNarwhal.isAlive)
         {
-            parentNarwhal.isAlive = false;
-            audioSource.Play();
+            Debug.Log("The Narwhal is dead");
+            if (parentNarwhal.isAlive = false)
+                parentNarwhal.gameObject.SetActive(false);
+            hitSource.Play();
         }
     }
 }

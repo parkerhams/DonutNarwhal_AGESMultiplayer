@@ -53,9 +53,8 @@ public class MenuManager : MonoBehaviour
 
     // Start the game
     public void JoinStartButton()
-    {
-        if(JoinScreen.NumberOfJoinedPlayers >= 2)
-            SceneManager.LoadScene(nextScene);
+    {      
+         SceneManager.LoadScene(nextScene);
     }
 
     // Quit the game

@@ -55,11 +55,7 @@ public class NarwhalMoveAndTurn : MonoBehaviour
 
     [HideInInspector]
     public bool isAlive = true;
-
-    //public Text countText;
-    //public Text winText;
-
-    //public int playerNumber = 1;
+    public bool canBeControlled;
 
     //FROM DAVID ANTOGNOLI'S JOIN SCREEN LAMBDA EXAMPLE
     // Which player controls the character?
@@ -195,31 +191,10 @@ public class NarwhalMoveAndTurn : MonoBehaviour
         StartCoroutine(ShootCooldown());
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Pick Ups"))
-        {
-            other.gameObject.SetActive(false);
-            scoreCount = scoreCount + 1;
-            //SetCountText();
-        }
-    }
-
     IEnumerator ShootCooldown()
     {
         canShoot = false;
         yield return new WaitForSeconds(fireCooldown);
         canShoot = true;
     }
-    //void SetCountText()
-    //{
-    //    countText.text = "Donuts: " + scoreCount.ToString();
-    //    winText.text = "";
-
-    //    if (scoreCount >= 1)
-    //    {
-    //        countText.text = "";
-    //        winText.text = "" + PlayerNumber + " Wins!";
-    //    }
-    //}
 }

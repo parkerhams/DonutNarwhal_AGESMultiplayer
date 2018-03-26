@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
-
     private void SpawnAllPlayers()
     {
         for (int i = 0; i < players.Length; i++)
@@ -73,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameLoop()
     {
+        Debug.Log("Game Loop is occurring");
         yield return StartCoroutine(RoundStarting());
         yield return StartCoroutine(RoundPlaying());
         yield return StartCoroutine(RoundEnding());
@@ -127,10 +127,11 @@ public class GameManager : MonoBehaviour
         gameWinner = GetGameWinner();
 
         string message = EndMessage();
-        if (gameWinner != null)
-            playerScores.transform.Find("EndMessage").GetComponent<Text>().text = message;
-        else
-            messageText.text = message;
+        //if (gameWinner != null)
+        //    playerScores.transform.Find("EndMessage").GetComponent<Text>().text = message;
+        //else
+        //    
+messageText.text = message;
 
         yield return EndRoundWait;
     }
@@ -145,12 +146,13 @@ public class GameManager : MonoBehaviour
                 numPlayersLeft++;
         }
 
-        return numPlayersLeft <= 1;
+        return numPlayersLeft <= 3;
     }
 
 
     private PlayerManager GetRoundWinner()
     {
+        Debug.Log("Round Winner is Running!");
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].narwhalPlayer.isAlive)
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerManager GetGameWinner()
     {
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             if (players[i].m_Wins == roundsToWin)
                 return players[i];
@@ -175,14 +177,15 @@ public class GameManager : MonoBehaviour
 
     private string EndMessage()
     {
-        string message = "Donuts are unscathed!";
+        //roundWinner = GetRoundWinner();
+        string message = "";
 
         if (roundWinner != null)
             message = roundWinner.m_ColoredPlayerText + " has lasered a Donut!";
 
         message += "\n\n\n\n";
 
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             message += players[i].m_ColoredPlayerText + ": " + players[i].m_Wins + " WINS\n";
         }
@@ -196,7 +199,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetAllPlayers()
     {
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].Reset();
         }
@@ -205,7 +208,7 @@ public class GameManager : MonoBehaviour
 
     private void EnablePlayerControl()
     {
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].EnableControl();
         }
@@ -214,7 +217,7 @@ public class GameManager : MonoBehaviour
 
     private void DisablePlayerControl()
     {
-        for (int i = 0; i < activePlayers; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             players[i].DisableControl();
         }
