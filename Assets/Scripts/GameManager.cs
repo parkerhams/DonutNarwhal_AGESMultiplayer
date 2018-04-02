@@ -44,7 +44,9 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAllPlayers()
     {
-        for (int i = 0; i < players.Length; i++)
+        if (activePlayers < 2)
+            SceneManager.LoadScene(menuScene);
+        for (int i = 0; i < activePlayers; i++)
         {
             players[i].m_Instance =
                 Instantiate(playerPrefab, players[i].m_SpawnPoint.position, players[i].m_SpawnPoint.rotation) as GameObject;
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void SetCameraTargets()
     {
-        Transform[] targets = new Transform[players.Length];
+        Transform[] targets = new Transform[activePlayers];
 
         for (int i = 0; i < targets.Length; i++)
         {
@@ -127,11 +129,10 @@ public class GameManager : MonoBehaviour
         gameWinner = GetGameWinner();
 
         string message = EndMessage();
-        //if (gameWinner != null)
-        //    playerScores.transform.Find("EndMessage").GetComponent<Text>().text = message;
-        //else
-        //    
-messageText.text = message;
+        if (gameWinner != null)
+            playerScores.transform.Find("EndMessage").GetComponent<Text>().text = message;
+        else
+            messageText.text = message;
 
         yield return EndRoundWait;
     }
@@ -153,7 +154,7 @@ messageText.text = message;
     private PlayerManager GetRoundWinner()
     {
         Debug.Log("Round Winner is Running!");
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             if (players[i].narwhalPlayer.isAlive)
                 return players[i];
@@ -165,7 +166,7 @@ messageText.text = message;
 
     private PlayerManager GetGameWinner()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             if (players[i].m_Wins == roundsToWin)
                 return players[i];
@@ -177,7 +178,7 @@ messageText.text = message;
 
     private string EndMessage()
     {
-        //roundWinner = GetRoundWinner();
+        roundWinner = GetRoundWinner();
         string message = "";
 
         if (roundWinner != null)
@@ -185,7 +186,7 @@ messageText.text = message;
 
         message += "\n\n\n\n";
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             message += players[i].m_ColoredPlayerText + ": " + players[i].m_Wins + " WINS\n";
         }
@@ -199,7 +200,7 @@ messageText.text = message;
 
     private void ResetAllPlayers()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             players[i].Reset();
         }
@@ -208,7 +209,7 @@ messageText.text = message;
 
     private void EnablePlayerControl()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             players[i].EnableControl();
         }
@@ -217,7 +218,7 @@ messageText.text = message;
 
     private void DisablePlayerControl()
     {
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < activePlayers; i++)
         {
             players[i].DisableControl();
         }
